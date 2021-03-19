@@ -80,7 +80,6 @@ export default function App() {
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
             setModalVisible(!modalVisible);
           }}
         >
@@ -134,7 +133,6 @@ export default function App() {
                     setModalImg({webformatURL: el.webformatURL, Like: el.likes, Tags: el.tags, comments: el.comments})
                     setModalVisible(true)
                   }
-
                   }
                 >
                   <Text style={st.textStyle}>Show Modal</Text>
@@ -150,7 +148,7 @@ export default function App() {
           <Button
             title={"показать меньше!"}
             disabled={pagination < 5 ? true : false}
-            onPress={() => setPagination(pagination - 5)}
+            onPress={() => setPagination(data.hits.length - 5)}
           />
 
         </ScrollView>
