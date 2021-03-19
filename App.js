@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { StatusBar,SafeAreaView,ScrollView,Image,StyleSheet, Text, View,Button,TextInput } from 'react-native';
+import { ActivityIndicator,SafeAreaView,ScrollView,Image,StyleSheet, Text, View,Button,TextInput } from 'react-native';
 
 export default function App() {
   const [data, setData] = useState(null);
@@ -28,7 +28,7 @@ export default function App() {
     setToggle(!toggle)
   }
 
-  const test = (obj,pref="") => {
+  const parseObjToString = (obj,pref="") => {
     let res = Object.entries(obj);
     let str = ""
     res.map(el=>str+=`${el[0]}: ${el[1]}${pref} %0A `)
@@ -37,14 +37,18 @@ export default function App() {
   const sendQuery = () => {
     const token = `1626093590:AAHZTkCDkjUA2fjm48Y6_W7RD1qgQTC1GNg`
     const chatId = `-542959091`
-    let message = `**Новое сохранение!** %0A ${test(modalImg)} }`
+    let message = `**Новое сохранение!** %0A ${parseObjToString(modalImg)}`
     let url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET",url)
     xhttp.send()
   }
 if(data === null){
-  return null // spinner
+  return (
+    <View style={[styles.containerSpinner, styles.horizontal]}>
+      <ActivityIndicator size="large" color="#00ff00" />
+    </View>
+  )
 }else return (
 
     <>
@@ -152,4 +156,14 @@ const styles = StyleSheet.create({
   modalOff:{
     display: 'none'
   },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10
+  },
+  containerSpinner:{
+    flex: 1,
+    justifyContent: "center"
+  }
+
 });
