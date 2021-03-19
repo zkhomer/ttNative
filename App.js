@@ -115,10 +115,12 @@ if(data === null){
         })}
         <Button
         title={"показать больше!"}
+        disabled={pagination>data.hits.length ? true:false}
         onPress={()=>setPagination(pagination+5)}
         />
         <Button
         title={"показать меньше!"}
+        disabled={pagination< 5 ? true:false}
         onPress={()=>setPagination(pagination-5)}
         />
 
